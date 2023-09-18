@@ -4,8 +4,7 @@ public class User
 {
     private String email, userName, phone;
 
-    public User(String email, String userName, String phone)
-    {
+    public User(String email, String userName, String phone) throws IllegalAccessException {
         setEmail (email);
         setUserName (userName);
         setPhone (phone);
@@ -19,12 +18,17 @@ public class User
         this.email = email;
     }
 
-    public String getUserName() {
+    public String getUserName()  {
+
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String userName) throws IllegalAccessException {
+        userName = userName.trim(); // remove leading and tralling whitespaces
+        if (userName.matches("[A-Z1-9]*"))
+            this.userName = userName;
+        else
+            throw new IllegalAccessException("username must have atleast 1 character and/ or number");
     }
 
     public String getPhone() {
